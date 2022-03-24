@@ -5,9 +5,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "",
+    "start:prod": "",
+    "start:test": ""
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",
+    "helmet": "^5.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.4.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "config": "^3.3.7"
+  }
 }
