@@ -1,0 +1,8 @@
+{
+    "name": "akademi_server-production",
+    "database": {
+        "url": "prod-database-url",
+        "dbName": "prod-database-name",
+        "password": "prod-database-pw"
+    }
+}
