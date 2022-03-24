@@ -5,9 +5,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "",
-    "start:prod": "",
-    "start:test": ""
+    "setEnvToDev": "NODE_ENV=development",
+    "setEnvToProd": "NODE_ENV=production",
+    "setEnvToTest": "NODE_ENV=test",
+    "start:dev": "npm run setEnvToDev && node index.js",
+    "start:prod": "npm run setEnvToProd && node index.js",
+    "start:test": "npm run setEnvToTest && node index.js"
   },
   "keywords": [],
   "author": "",
