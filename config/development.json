@@ -1,0 +1,8 @@
+{
+    "name": "akademi_server-development",
+    "database": {
+        "url": "dev-database-url",
+        "dbName": "dev-database-name",
+        "password": "dev-database-pw"
+    }
+}
