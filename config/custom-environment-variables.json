@@ -1,0 +1,7 @@
+{
+    "database": {
+        "url": "AKADEMI_SERVER_DATABASE_URL",
+        "dbName": "AKADEMI_SERVER_DATABASE_NAME",
+        "password": "AKADEMI_SERVER_DATABASE_PW"
+    }
+}
