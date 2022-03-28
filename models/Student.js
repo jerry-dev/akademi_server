@@ -6,7 +6,7 @@ const MongoClient = mongodb.MongoClient;
 const dbURL = `${config.get('database.host')}:${config.get('database.port')}`;
 const database = config.get('database.dbName');
 
-export default class Students {
+export default class StudentModel {
     async find() {
         let client;
 
