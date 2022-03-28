@@ -1,7 +1,8 @@
 {
     "name": "akademi_server-development",
     "database": {
-        "url": "dev-database-url",
+        "host": "dev-database-host",
+        "port": "dev-database-port",
         "dbName": "dev-database-name",
         "password": "dev-database-pw"
     }

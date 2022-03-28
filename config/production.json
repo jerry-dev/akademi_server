@@ -1,7 +1,8 @@
 {
     "name": "akademi_server-production",
     "database": {
-        "url": "prod-database-url",
+        "host": "prod-database-host",
+        "port": "prod-database-port",
         "dbName": "prod-database-name",
         "password": "prod-database-pw"
     }

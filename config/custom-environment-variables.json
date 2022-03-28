@@ -1,6 +1,7 @@
 {
     "database": {
-        "url": "AKADEMI_SERVER_DATABASE_URL",
+        "host": "AKADEMI_SERVER_DATABASE_HOST",
+        "port": "AKADEMI_SERVER_DATABASE_PORT",
         "dbName": "AKADEMI_SERVER_DATABASE_NAME",
         "password": "AKADEMI_SERVER_DATABASE_PW"
     }
