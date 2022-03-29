@@ -2,7 +2,6 @@ import config from 'config';
 import mongodb from 'mongodb';
 
 const MongoClient = mongodb.MongoClient;
-
 const dbURL = `${config.get('database.host')}:${config.get('database.port')}`;
 const database = config.get('database.dbName');
 
@@ -12,9 +11,10 @@ export default class StudentModel {
 
         try {
             client = await MongoClient.connect(dbURL, { useUnifiedTopology: true });
-            console.info(`SUCCESSFULLY CONNECTED TO THE ${database}`);
+            console.info(`SUCCESSFULLY CONNECTED TO ${database}`);
             const students = client.db(database).collection('students');
-            return await students.find().toArray();
+            const results = await students.find().toArray();
+            return results;
         } catch (error) {
             console.error(`CONNECTION FAILED: ${error.message}`);
         } finally {
@@ -32,7 +32,7 @@ export default class StudentModel {
             client = await MongoClient.connect(dbURL, { useUnifiedTopology: true });
             console.info(`SUCCESSFULLY CONNECTED TO THE ${database}`);
             const students = client.db(database).collection('students');
-            return await students.find(query).toArray();
+            return await students.aggregate(query);
         } catch (error) {
             console.info(`SUCCESSFULLY CONNECTED TO THE ${database}`);
         } finally {

@@ -1,7 +1,7 @@
 import studentService from '../services/student.js';
 
 class StudentController {
-    async getStudents() {
+    async getStudents(req, res) {
         try {
             const students = await studentService.getStudents();
             return res.status(200).send(students);
