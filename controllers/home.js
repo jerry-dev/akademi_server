@@ -1,4 +1,4 @@
-import homeService from '../services/home.js';
+import homeService from '../services/homeService.js';
 
 class HomeController {
     async getHomeData(req, res) {
