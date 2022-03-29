@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
-import student from '../routes/student.js'
+import home from '../routes/home.js'
 
 export default class ExpressLoader {
     constructor() {
@@ -13,7 +13,7 @@ export default class ExpressLoader {
         app.use(helmet());
         app.use(express.json());
         app.use(express.urlencoded({extended: true}));
-        app.use('/', student);
+        app.use('/', home);
 
         switch (environment) {
             case 'development':
