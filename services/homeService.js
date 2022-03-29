@@ -1,14 +1,12 @@
 import StudentModel from '../models/Student.js';
+import TeacherModel from '../models/Teacher.js';
 import EventModel from '../models/Event.js';
 import FoodModel from '../models/Food.js';
 
-const studentModel = new StudentModel();
-const foodModel = new FoodModel();
-const eventModel = new EventModel();
-
 class HomeService {
-    constructor(studentModel, foodModel, eventModel) {
+    constructor(studentModel, teacherModel, foodModel, eventModel, ) {
         this.studentModel = studentModel;
+        this.teacherModel = teacherModel;
         this.foodModel = foodModel;
         this.eventModel = eventModel;
     }
@@ -26,6 +24,7 @@ class HomeService {
 
         try {
             const students = await this.studentModel.find();
+            const teachers = await this.teacherModel.find();
             const foods = await this.foodModel.find();
             const events = await this.eventModel.find();
 
@@ -40,6 +39,7 @@ class HomeService {
             })
 
             homeData.overview.studentsCount = students.length;
+            homeData.overview.teachersCount = teachers.length;
             homeData.overview.foodsCount = foods.length;
             let eventsCount = 0;
 
@@ -57,6 +57,11 @@ class HomeService {
     }
 }
 
-const homeService = new HomeService(studentModel, foodModel, eventModel);
+const studentModel = new StudentModel();
+const teacherModel = new TeacherModel();
+const foodModel = new FoodModel();
+const eventModel = new EventModel();
+
+const homeService = new HomeService(studentModel, teacherModel, foodModel, eventModel);
 
 export default homeService;
