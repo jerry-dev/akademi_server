@@ -29,6 +29,16 @@ class HomeService {
             const foods = await this.foodModel.find();
             const events = await this.eventModel.find();
 
+            homeData.unpaidTuition[homeData.unpaidTuition.length] = students.map((studentInstance) => {
+                return {
+                    studentFullName: studentInstance.studentName,
+                    studentId: studentInstance.id,
+                    studentClass: studentInstance.academicRecords.class,
+                    studentDebt: studentInstance.financialRecords.debt,
+                    studentPhoto: studentInstance.bio.profilePhoto
+                };
+            })
+
             homeData.overview.studentsCount = students.length;
             homeData.overview.foodsCount = foods.length;
             let eventsCount = 0;
@@ -38,7 +48,7 @@ class HomeService {
                     eventsCount = eventsCount + events[0][month].length;
                 }
             }
-            
+
             homeData.overview.eventsCount = eventsCount;
             return homeData;
         } catch (error) {
