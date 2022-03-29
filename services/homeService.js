@@ -1,5 +1,5 @@
 import StudentModel from '../models/Student.js';
-import EventModel from '../models/Events.js';
+// import EventModel from '../models/Events.js';
 import FoodModel from '../models/Food.js';
 
 const studentModel = new StudentModel();
