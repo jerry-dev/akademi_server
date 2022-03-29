@@ -29,7 +29,7 @@ class HomeService {
             const foods = await this.foodModel.find();
             const events = await this.eventModel.find();
 
-            homeData.unpaidTuition[homeData.unpaidTuition.length] = students.map((studentInstance) => {
+            homeData.unpaidTuition = students.map((studentInstance) => {
                 return {
                     studentFullName: studentInstance.studentName,
                     studentId: studentInstance.id,
