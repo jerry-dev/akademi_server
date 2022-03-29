@@ -31,7 +31,15 @@ class HomeService {
 
             homeData.overview.studentsCount = students.length;
             homeData.overview.foodsCount = foods.length;
-            homeData.overview.eventsCount = events.length;
+            let eventsCount = 0;
+
+            for (let month in events[0]) {
+                if (month !== '_id') {
+                    eventsCount = eventsCount + events[0][month].length;
+                }
+            }
+            
+            homeData.overview.eventsCount = eventsCount;
             return homeData;
         } catch (error) {
             console.error(`Error:`, error.message);
