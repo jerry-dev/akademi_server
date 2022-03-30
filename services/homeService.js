@@ -21,7 +21,8 @@ class HomeService {
                 eventsCount: 0,
                 foodsCount: 0
             },
-            unpaidTuition: []
+            unpaidTuition: null,
+            messages: null
         };
 
         try {
@@ -85,6 +86,8 @@ class HomeService {
             }
 
             homeData.overview.eventsCount = eventsCount;
+
+            homeData.messages = messages;
             return homeData;
         } catch (error) {
             console.error(`Error:`, error.message);
