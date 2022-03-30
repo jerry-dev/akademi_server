@@ -95,6 +95,13 @@ class HomeService {
         });
     }
 
+    getEvents(events) {
+        return events.map((eventInstance) => {
+            const { _id, ...reformattedEventInstance} = eventInstance;
+            return reformattedEventInstance;
+        });
+    }
+
     getFood(food) {
         return food.map((foodInstance) => {
             return {
@@ -127,7 +134,7 @@ class HomeService {
             homeData.unpaidTuition = this.getUnpaidTuition(students);
             homeData.messages = this.getMessages(messages, students);
             homeData.recentStudents = this.getRecentStudents(students);
-            homeData.events = events;
+            homeData.events = this.getEvents(events);
             homeData.food = this.getFood(foods);
             return homeData;
         } catch (error) {
