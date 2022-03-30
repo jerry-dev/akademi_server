@@ -31,6 +31,29 @@ class HomeService {
             const foods = await this.foodModel.find();
             const events = await this.eventModel.find();
 
+            const setFakeTimeStamp = (studentMessages) => {
+                studentMessages.forEach((messageInstance) => {
+                    
+                    messageInstance.messages.forEach((messageDetails) => {
+                        let fakeTimeStamp = new Date(
+                            Date.UTC(
+                                new Date().getFullYear(),
+                                new Date().getMonth(),
+                                new Date().getDate(),
+                                new Date().getUTCHours(),
+                                Math.floor(Math.random() * 59)
+                            )
+                        ).toLocaleString().replace(/^.*, /, "");
+                    
+                        fakeTimeStamp = fakeTimeStamp.replace(/:00 /, " ");
+                
+                        messageDetails.timestamp = fakeTimeStamp;
+                    });
+                });
+            }
+
+            setFakeTimeStamp(messages);
+
             messages.forEach((messageInstance) => {
                 for (let i = 0; i < students.length; i++) {
                     if (messageInstance.senderId === students[i].id) {
