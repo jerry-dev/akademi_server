@@ -100,7 +100,8 @@ class HomeService {
             overview: null,
             unpaidTuition: null,
             messages: null,
-            recentStudents: null
+            recentStudents: null,
+            events: null,
         };
 
         try {
@@ -114,6 +115,7 @@ class HomeService {
             homeData.unpaidTuition = this.getUnpaidTuition(students);
             homeData.messages = this.getMessages(messages, students);
             homeData.recentStudents = this.getRecentStudents(students);
+            homeData.events = events;
             return homeData;
         } catch (error) {
             console.error(`Error:`, error.message);
