@@ -95,6 +95,18 @@ class HomeService {
         });
     }
 
+    getFood(food) {
+        return food.map((foodInstance) => {
+            return {
+                itemName: foodInstance.itemName,
+                ingredients: foodInstance.ingredients,
+                menuImage: foodInstance.menuImage,
+                description: foodInstance.description,
+                nutrition: foodInstance.nutrition,
+            };
+        });
+    }
+
     async getHomeData() {
         const homeData = {
             overview: null,
@@ -116,6 +128,7 @@ class HomeService {
             homeData.messages = this.getMessages(messages, students);
             homeData.recentStudents = this.getRecentStudents(students);
             homeData.events = events;
+            homeData.food = this.getFood(foods);
             return homeData;
         } catch (error) {
             console.error(`Error:`, error.message);
