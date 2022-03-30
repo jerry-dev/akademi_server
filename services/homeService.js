@@ -1,12 +1,14 @@
 import StudentModel from '../models/Student.js';
 import TeacherModel from '../models/Teacher.js';
+import MessageModel from '../models/Message.js';
 import EventModel from '../models/Event.js';
 import FoodModel from '../models/Food.js';
 
 class HomeService {
-    constructor(studentModel, teacherModel, foodModel, eventModel, ) {
+    constructor(studentModel, teacherModel, messageModel, foodModel, eventModel, ) {
         this.studentModel = studentModel;
         this.teacherModel = teacherModel;
+        this.messageModel = messageModel;
         this.foodModel = foodModel;
         this.eventModel = eventModel;
     }
@@ -25,8 +27,18 @@ class HomeService {
         try {
             const students = await this.studentModel.find();
             const teachers = await this.teacherModel.find();
+            const messages = await this.messageModel.find();
             const foods = await this.foodModel.find();
             const events = await this.eventModel.find();
+
+            messages.forEach((messageInstance) => {
+                for (let i = 0; i < students.length; i++) {
+                    if (messageInstance.senderId === students[i].id) {
+                        messageInstance.profilePhoto = students[i].bio.profilePhoto;
+                        messageInstance.studentName = students[i].studentName;
+                    }
+                }
+            });
 
             homeData.unpaidTuition = students.map((studentInstance) => {
                 return {
@@ -59,9 +71,10 @@ class HomeService {
 
 const studentModel = new StudentModel();
 const teacherModel = new TeacherModel();
+const messageModel = new MessageModel();
 const foodModel = new FoodModel();
 const eventModel = new EventModel();
 
-const homeService = new HomeService(studentModel, teacherModel, foodModel, eventModel);
+const homeService = new HomeService(studentModel, teacherModel, messageModel, foodModel, eventModel);
 
 export default homeService;
