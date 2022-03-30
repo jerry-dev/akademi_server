@@ -56,6 +56,7 @@ class HomeService {
             setFakeTimeStamp(messages);
 
             messages.forEach((messageInstance) => {
+                delete messageInstance['_id'];
                 for (let i = 0; i < students.length; i++) {
                     if (messageInstance.senderId === students[i].id) {
                         messageInstance.profilePhoto = students[i].bio.profilePhoto;
