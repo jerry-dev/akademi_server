@@ -30,7 +30,7 @@ export default class EventModel {
         try {
             client = await MongoClient.connect(dbURL, { useUnifiedTopology: true });
             console.info(`SUCCESSFULLY CONNECTED TO THE ${database}`);
-            const events = client.db(database).collection('food');
+            const events = client.db(database).collection('events');
             return await events.aggregate(query);
         } catch (error) {
             console.info(`SUCCESSFULLY CONNECTED TO THE ${database}`);
