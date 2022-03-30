@@ -13,16 +13,94 @@ class HomeService {
         this.eventModel = eventModel;
     }
 
+    getOverview(students, teachers, foods, events) {
+        const overview = {};
+        overview.studentsCount = students.length;
+        overview.teachersCount = teachers.length;
+        overview.foodsCount = foods.length;
+        let eventsCount = 0;
+
+        for (let month in events[0]) {
+            if (month !== '_id') {
+                eventsCount = eventsCount + events[0][month].length;
+            }
+        }
+        
+        overview.eventsCount = eventsCount;
+        return overview;
+    }
+
+    getUnpaidTuition(students) {
+        return students.map((studentInstance) => {
+            return {
+                studentFullName: studentInstance.studentName,
+                studentId: studentInstance.id,
+                studentClass: studentInstance.academicRecords.class,
+                studentDebt: studentInstance.financialRecords.debt,
+                studentPhoto: studentInstance.bio.profilePhoto
+            };
+        })
+    }
+
+    getRecentStudents(students) {
+        let recentStudents = [];
+
+        for (let i = students.length-1; i > students.length-21; i--) {
+            let selectedStudent = {};
+            selectedStudent.profilePhoto = students[i].bio.profilePhoto;
+            selectedStudent.studentName = students[i].studentName;
+            selectedStudent.class = students[i].academicRecords.class;
+            selectedStudent.studentId = students[i].id;
+
+            recentStudents[recentStudents.length] = selectedStudent;
+        }
+
+        return recentStudents;
+    }
+
+    getMessages(messages, students) {
+        this.setFakeTimeStamp(messages);
+
+        messages.forEach((messageInstance) => {
+            delete messageInstance['_id'];
+            for (let i = 0; i < students.length; i++) {
+                if (messageInstance.senderId === students[i].id) {
+                    messageInstance.profilePhoto = students[i].bio.profilePhoto;
+                    messageInstance.studentName = students[i].studentName;
+                }
+            }
+        });
+
+        return messages;
+    }
+
+    setFakeTimeStamp(studentMessages) {
+        studentMessages.forEach((messageInstance) => {
+            
+            messageInstance.messages.forEach((messageDetails) => {
+                let fakeTimeStamp = new Date(
+                    Date.UTC(
+                        new Date().getFullYear(),
+                        new Date().getMonth(),
+                        new Date().getDate(),
+                        new Date().getUTCHours(),
+                        Math.floor(Math.random() * 59)
+                    )
+                ).toLocaleString().replace(/^.*, /, "");
+            
+                fakeTimeStamp = fakeTimeStamp.replace(/:00 /, " ");
+        
+                messageDetails.timestamp = fakeTimeStamp;
+            });
+        });
+    }
+
     async getHomeData() {
         const homeData = {
-            overview: {
-                studentsCount: 0,
-                teachersCount: 0,
-                eventsCount: 0,
-                foodsCount: 0
-            },
+            overview: null,
             unpaidTuition: null,
-            messages: null
+            messages: null,
+            recentStudents: null
         };
 
         try {
@@ -31,64 +109,11 @@ class HomeService {
             const messages = await this.messageModel.find();
             const foods = await this.foodModel.find();
             const events = await this.eventModel.find();
-
-            const setFakeTimeStamp = (studentMessages) => {
-                studentMessages.forEach((messageInstance) => {
-                    
-                    messageInstance.messages.forEach((messageDetails) => {
-                        let fakeTimeStamp = new Date(
-                            Date.UTC(
-                                new Date().getFullYear(),
-                                new Date().getMonth(),
-                                new Date().getDate(),
-                                new Date().getUTCHours(),
-                                Math.floor(Math.random() * 59)
-                            )
-                        ).toLocaleString().replace(/^.*, /, "");
-                    
-                        fakeTimeStamp = fakeTimeStamp.replace(/:00 /, " ");
-                
-                        messageDetails.timestamp = fakeTimeStamp;
-                    });
-                });
-            }
-
-            setFakeTimeStamp(messages);
-
-            messages.forEach((messageInstance) => {
-                delete messageInstance['_id'];
-                for (let i = 0; i < students.length; i++) {
-                    if (messageInstance.senderId === students[i].id) {
-                        messageInstance.profilePhoto = students[i].bio.profilePhoto;
-                        messageInstance.studentName = students[i].studentName;
-                    }
-                }
-            });
-
-            homeData.unpaidTuition = students.map((studentInstance) => {
-                return {
-                    studentFullName: studentInstance.studentName,
-                    studentId: studentInstance.id,
-                    studentClass: studentInstance.academicRecords.class,
-                    studentDebt: studentInstance.financialRecords.debt,
-                    studentPhoto: studentInstance.bio.profilePhoto
-                };
-            })
-
-            homeData.overview.studentsCount = students.length;
-            homeData.overview.teachersCount = teachers.length;
-            homeData.overview.foodsCount = foods.length;
-            let eventsCount = 0;
-
-            for (let month in events[0]) {
-                if (month !== '_id') {
-                    eventsCount = eventsCount + events[0][month].length;
-                }
-            }
-
-            homeData.overview.eventsCount = eventsCount;
-
-            homeData.messages = messages;
+            
+            homeData.overview = this.getOverview(students, teachers, foods, events);
+            homeData.unpaidTuition = this.getUnpaidTuition(students);
+            homeData.messages = this.getMessages(messages, students);
+            homeData.recentStudents = this.getRecentStudents(students);
             return homeData;
         } catch (error) {
             console.error(`Error:`, error.message);
