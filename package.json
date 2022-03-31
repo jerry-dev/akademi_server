@@ -16,13 +16,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "config": "^3.3.7",
     "express": "^4.17.3",
     "helmet": "^5.0.2",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.4.1",
     "morgan": "^1.10.0"
-  },
-  "devDependencies": {
-    "config": "^3.3.7"
   }
 }
