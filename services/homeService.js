@@ -32,9 +32,9 @@ class HomeService {
 
     getOverview(students, teachers, foods, events) {
         const overview = [];
-        overview[overview.length] = { "title": "students", "stat": students.length };
-        overview[overview.length] = { "title": "teachers", "stat": teachers.length };
-        overview[overview.length] = { "title": "foods", "stat": foods.length };
+        overview[overview.length] = { "title": "students", "stat": `${students.length}` };
+        overview[overview.length] = { "title": "teachers", "stat": `${teachers.length}` };
+        overview[overview.length] = { "title": "foods", "stat": `${foods.length}` };
         
         let eventsCount = 0;
 
@@ -44,7 +44,7 @@ class HomeService {
             }
         }
 
-        overview[overview.length] = { "title": "events", "stat": eventsCount };
+        overview[overview.length] = { "title": "events", "stat": `${eventsCount}` };
         return overview;
     }
 
