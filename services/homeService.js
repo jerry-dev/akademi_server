@@ -13,23 +13,6 @@ class HomeService {
         this.eventModel = eventModel;
     }
 
-    // getOverview(students, teachers, foods, events) {
-    //     const overview = {};
-    //     overview.studentsCount = students.length;
-    //     overview.teachersCount = teachers.length;
-    //     overview.foodsCount = foods.length;
-    //     let eventsCount = 0;
-
-    //     for (let month in events[0]) {
-    //         if (month !== '_id') {
-    //             eventsCount = eventsCount + events[0][month].length;
-    //         }
-    //     }
-        
-    //     overview.eventsCount = eventsCount;
-    //     return overview;
-    // }
-
     getOverview(students, teachers, foods, events) {
         const overview = [];
         overview[overview.length] = { "title": "students", "stat": `${students.length}` };
