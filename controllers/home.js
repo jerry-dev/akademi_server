@@ -5,9 +5,10 @@ class HomeController {
         try {
             const homeData = await homeService.getHomeData();
             res.header("Access-Control-Allow-Origin", "https://akademi-by-jerry-dormetus.netlify.app");
+            res.header("Access-Control-Allow-Method", "GET");
             res.header(
                     "Access-Control-Allow-Headers",
-                    "Origin, X-Requested-With, Content-Type, Accept");
+                    "Origin, X-Requested-With, Content-Type");
             res.status(200).send(homeData);
         } catch (error) {
             return res.status(404).send(send.message);
