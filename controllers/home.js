@@ -4,7 +4,7 @@ class HomeController {
     async getHomeData(req, res) {
         try {
             const homeData = await homeService.getHomeData();
-            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Origin", "https://akademi-by-jerry-dormetus.netlify.app");
             res.header(
                     "Access-Control-Allow-Headers",
                     "Origin, X-Requested-With, Content-Type, Accept");
